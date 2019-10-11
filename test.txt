@@ -1,0 +1,3 @@
+Zip(iterable,iterabel) 
+map(f,iterable)
+filter(f,iterable)
