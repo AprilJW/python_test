@@ -71,26 +71,40 @@ print(Quadrangle(2, 2).numsides())
 
 #给圆增加可序列化功能，方法3，装饰器
 
-def to_json(cls):
-    def to_json(self):
-        r_area_mapping = {}
-        r_area_mapping[self.r] = self.numsides()
-        return json.dumps(r_area_mapping)
-    cls.to_json = to_json
-    return cls
+# def to_json(cls):
+#     def to_json(self):
+#         r_area_mapping = {}
+#         r_area_mapping[self.r] = self.numsides()
+#         return json.dumps(r_area_mapping)
+#     cls.to_json = to_json
+#     return cls
+#
+# def from_json(cls):
+#     def from_json(self):
+#         return json.loads(self.to_json())
+#     cls.from_json = from_json
+#     return cls
+#
+# @to_json
+# @from_json
+# class Circle(Area):
+#     def __init__(self, r):
+#         super().__init__(r)
+#         self.r = r
+#
+# print(Circle(2).to_json())
+# print(Circle(2).from_json())
 
-def from_json(cls):
-    def from_json(self):
-        return json.loads(self.to_json())
-    cls.from_json = from_json
-    return cls
+# 方法4, Mixin(老师给的方法)
+class Area:
+    def getarea(self):
+        raise NotImplementedError
 
-@to_json
-@from_json
+class Triangle(Area):
+    pass
+
+class Rectangle(Area):
+    pass
+
 class Circle(Area):
-    def __init__(self, r):
-        super().__init__(r)
-        self.r = r
-
-print(Circle(2).to_json())
-print(Circle(2).from_json())
+    pass
