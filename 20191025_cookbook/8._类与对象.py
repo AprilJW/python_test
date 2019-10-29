@@ -39,45 +39,60 @@ class LazyConnection:
         self.sock = None
         return True
 
-from functools import partial, wraps
+# from functools import partial, wraps
+#
+# conn = LazyConnection(('www.python.org', 80))
+# with conn as s:
+#     s.send(b'GET /indes.html HTTP/1.0\r\n')
+#     s.send(b'Host: www.python.org\r\n')
+#     s.send(b'\r\n')
+#     resp = b''.join(iter(partial(s.recv, 1), b''))
+#     print('456')
+#     #raise Exception('123')
+#     print('resp', resp)
+#
+# def add(x, y):
+#     return x + y
+# print(partial(add, 1)(3))
+#
+# def a(cls):
+#     print(cls.__name__)
+#     return 123
+#
+# def b():
+#     return partial(a, int)
+# print(b()())
+#
+# def wraps1(fn):
+#     return partial(update_wrapper1, wrapperd=fn)
+#
+# def update_wrapper1(wrapper, wrapperd):
+#     print(wrapper)
+#     print(wrapperd)
+#
+# print(wraps1(1)(2))
+# wraps(add)(a)
+# print(a.__name__)
+#
+# import random
+# for i in iter(partial(random.randint, 1, 5), 5):
+#     print('*****')
+#     print(i)
+#
+# a = partial(random.randint, 1, 5)
+# print('a:', a())
 
-conn = LazyConnection(('www.python.org', 80))
-with conn as s:
-    s.send(b'GET /indes.html HTTP/1.0\r\n')
-    s.send(b'Host: www.python.org\r\n')
-    s.send(b'\r\n')
-    resp = b''.join(iter(partial(s.recv, 1), b''))
-    print('456')
-    #raise Exception('123')
-    print('resp', resp)
+# 8.5
+class A:
+    def __init__(self):
+        self.__private = 0
+        self._internal = 1
+    def __private_method(self):
+        pass
 
-def add(x, y):
-    return x + y
-print(partial(add, 1)(3))
+    def _internal_method(self):
+        pass
 
-def a(cls):
-    print(cls.__name__)
-    return 123
-
-def b():
-    return partial(a, int)
-print(b()())
-
-def wraps1(fn):
-    return partial(update_wrapper1, wrapperd=fn)
-
-def update_wrapper1(wrapper, wrapperd):
-    print(wrapper)
-    print(wrapperd)
-
-print(wraps1(1)(2))
-wraps(add)(a)
-print(a.__name__)
-
-import random
-for i in iter(partial(random.randint, 1, 5), 5):
-    print('*****')
-    print(i)
-
-a = partial(random.randint, 1, 5)
-print('a:', a())
+a = A()
+print(a.__dict__)
+print(A.__dict__)

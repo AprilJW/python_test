@@ -55,40 +55,96 @@ class LinkList:
 # print(l[3])
 # #print(l[8])
 
-class StaticMethod:
-
-    def __init__(self, fn):
-        self.fn = fn
-
-    def __get__(self, instance, owner):
-        return self.fn
-
-
-from functools import partial
-class ClassMethod:
-    def __init__(self, fn):
-        self.fn = fn
-
-    def __get__(self, instance, owner):
-        return partial(self.fn, owner)
-
-
-class A:
-    @StaticMethod
-    def f1(x, y):
-        print(x + y)
-
-    @ClassMethod
-    def f2(cls):
-        print(cls.__name__)
-
-a = A()
-a.f1(4, 5)
-
-print(a.f2)
-print(a.f2())
 
 # 参数检查
-# 1。 2装饰器 3。miaoshu
+# 装饰器，使用inspect模块完成
+
+
+# 加入描述器，实例属性访问顺序
+
+
+
+
+# class Person:
+#     def __init__(self, first_name):
+#         print('1')
+#         self.first_name = first_name
+#         print('3')
+#
+#     def get_first_name(self):
+#         return self._first_name
+#
+#     def set_first_name(self, first_name):
+#         print('2')
+#         if not isinstance(first_name, str):
+#             raise TypeError('Expected a string')
+#         self._first_name = first_name
+#
+#     name = property(get_first_name, set_first_name, doc='add Property')
+#
+#
+# p = Person('tom')
+# # p = Person(10)
+# # print(p.__dict__)
+# # print(p.first_name)
+# # p.first_name = 'jerry'
+# # print(p.first_name)
+
+import os
+import sys
+
+# print(os.stat('/Users/jw/Projects/Mask_RCNN'))
+
+# print(sys.modules.keys())
+# import test1
+
+
+
+
+
+
+
+# 无参构造与值
+
+#
+
+
+
+
+
+
+
+
+
+
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
