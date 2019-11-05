@@ -90,7 +90,7 @@ class LinkList:
 # # p.first_name = 'jerry'
 # # print(p.first_name)
 
-import os
+
 import sys
 
 # print(os.stat('/Users/jw/Projects/Mask_RCNN'))
@@ -105,8 +105,22 @@ import sys
 
 
 # 无参构造与值
+# import test1
+# print(sys.modules.keys())
+# print(sys.path)
+# print(__name__.__modules__)
+# import test1
 
-#
+# import os.path
+
+import os
+print(os.path)
+
+
+
+
+
+
 
 
 

@@ -1,4 +1,5 @@
 
+
 def tuple_points_to_list(points):
     return [list(point) for point in points]
 

@@ -1,5 +1,5 @@
 # test1.py
-
+import os
 class A:
     def showmodule(self):
         print(1, self.__module__, self)
@@ -9,5 +9,5 @@ class A:
 
 
 a = A()
-a.showmodule()
+# a.showmodule()
 

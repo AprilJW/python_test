@@ -410,12 +410,27 @@ class LinkedList:
         self._size -= 1
         return elem
 
-
     def remove(self, index):
-        pass
+        if index < -self._size or index >= self._size:
+            if self._size == 0:
+                raise Exception('empty')
+            raise IndexError('index out of range')
 
+        current = self[index]
+        next = current.next
+        prev = current.prev
 
-
+        if current == self.tail:
+            self.pop()
+        elif current == self.head:
+            self.head = next
+            next.prev = None
+            self._size -= 1
+        else:
+            next.prev = prev
+            prev.next = next
+            self._size -= 1
+        return current.elem
 
     def iter_items(self, reverse=False):
         current = self.head if not reverse else self.tail
@@ -428,36 +443,96 @@ class LinkedList:
 
     size = property(lambda self: self._size)
 
+    def removedupli(self):
+        # if self.head is None:
+        #     return self.head
+        #
+        # cur = self.head
+        # pos1 = cur.next
+        #
+        # while cur is not None and pos1 is not None:
+        #     if cur.elem == pos1.elem:
+        #         pos1 = pos1.next
+        #     else:
+        #         cur.next = pos1
+        #         pos1.pre = cur
+        #         cur = pos1
+        #         pos1 = pos1.next
+        # cur.next = None
+        # self.tail = cur
+        # return self.tail
+        cur = self.head
+        while cur is not None and cur.next is not None:
+            if cur.elem == cur.next.elem:
+                cur.next = cur.next.next
+            else:
+                cur = cur.next
+        return self.head
 
 
-link_list = LinkedList()
-#link_list.append(5).append(6).append(7)
-# # print(link_list[0])
-# print(link_list[-1])
-# print(link_list[-3])
-# #print(link_list[-9])
-# print(link_list[0])
-# print(link_list[1])
-# print(link_list[2])
-# #print(link_list[9])
-# #print(link_list.size)
-# # link_list.size = 90
-print(link_list._size)
-print('*****')
-print(link_list.insert(0, 9))
-print(link_list.insert(1, 9))
-print(link_list.insert(4, 44))
-print(link_list.insert(10, 100000))
-print(link_list.insert(-1, 100))
-print(link_list.insert(-8, 300))
-print(link_list.insert(-100, 200))
-
-
-for n in link_list:
+b = LinkedList()
+b.append(1).append(1).append(2).append(3).append(3)
+# b.append(1).append(1).append(2)
+for n in b:
     print(n)
+print('************')
+b.removedupli()
+
+for n in b:
+    print(n)
+
+
+
+
+
+# link_list = LinkedList()
+# #link_list.append(5).append(6).append(7)
+# # # print(link_list[0])
+# # print(link_list[-1])
+# # print(link_list[-3])
+# # #print(link_list[-9])
+# # print(link_list[0])
+# # print(link_list[1])
+# # print(link_list[2])
+# # #print(link_list[9])
+# # #print(link_list.size)
+# # # link_list.size = 90
+# print(link_list._size)
+# print('*****')
+# print(link_list.insert(0, 9))
+# print(link_list.insert(1, 9))
+# print(link_list.insert(4, 44))
+# print(link_list.insert(10, 100000))
+# print(link_list.insert(-1, 100))
+# print(link_list.insert(-8, 300))
+# print(link_list.insert(-100, 200))
 #
-# for n in link_list.iter_items(True):
+#
+#
+#
+# for n in link_list:
 #     print(n)
+#
+# print('*********')
+# print(link_list.remove(0))
+# print(link_list.remove(5))
+# print(link_list.remove(3))
+# print(link_list.remove(-1))
+# print(link_list.remove(-3))
+# print(link_list.remove(-2))
+# # print(link_list.remove(8))
+# print(link_list.remove(0))
+# # print(link_list.remove(0))
+# # print(link_list.remove(-9))
+#
+# print('***********')
+# for n in link_list:
+#     print(n)
+#
+# # for n in link_list.iter_items(True):
+# #     print(n)
+
+
 
 
 
