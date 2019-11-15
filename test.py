@@ -240,6 +240,55 @@
 # #
 # #
 
+import logging
+import socket
+import threading
+import datetime
+
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(thread)d %(threadName)s %(message)s')
+
+class ChatServer:
+    def __init__(self, ip='127.0.0.1', port=9999):
+        self.addr = (ip, port)
+        self.sock = socket.socket()
+        self.clients = {}  # 因为后面涉及到删除所以用字典，没用列表
+        self.event = threading.Event()
+
+    def start(self):
+        self.sock.bind(self.addr)
+        self.sock.listen()
+        # 因为accept会阻塞当前主线程所以再开一个线程
+        threading.Thread(target=self.accept).start()
+
+    def accept(self):  # 等待多个客户端
+        while not self.event.is_set():
+            sock, client = self.sock.accept()  # 等待客户端响应，阻塞每一个客户端线程
+            self.clients[client] = sock  # client是一个元组，而且元组内部可哈希
+            # logging.info('{} {}'.format(*client))
+            threading.Thread(target=self.recv, args=(sock, client)).start()
+
+    def recv(self, sock, client):  # 等待一个客户端发送数据
+        while not self.event.is_set():
+            print('*********')
+            data = sock.recv(1024)  # 阻塞当前客户端，发送数据的线程
+            msg = '{} {} {}'.format(*client, data.decode())
+            logging.info(msg)
+            msg = msg.encode()
+            for s in self.clients.values():
+                s.send(msg)
+
+    def stop(self):
+        for s in self.clients.values():
+            s.close()
+        self.socket.close()
+
+
+cs = ChatServer()
+cs.start()
+
+
+# 解决客户端断开，服务器删除self.client字典
 
 
 

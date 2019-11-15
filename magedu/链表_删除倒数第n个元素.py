@@ -65,26 +65,6 @@ def remove(l, n):
 
 print(remove(l, 4))
 
-# 将一个链表分半，生成2个新链表
-# 一个指针走2步，一个指针走一步，奇数刚好，偶数停在倒数第二个
-
-def split(l):
-    head = l.head
-    if head is None:
-        return
-    fast = head
-    slow = head
-    while fast and fast.next and fast.next.next:
-        fast = fast.next.next
-        slow = slow.next
-    cur = slow
-    head2 = None
-    head2 = cur.next
-    cur.next = None
-    return l
-
-for i in split(l):
-    print(i)
 
 
 
