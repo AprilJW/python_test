@@ -5,12 +5,6 @@ import socket
 
 logging.basicConfig(level=logging.INFO, format='%(threadName)s %(thread)d %(message)s ')
 
-# 注意：
-# 1、先开启client，再开启server端不可以，因为self.socket.connect()会报错
-# 2、开启新线程时要调用start方法，不要忘记
-# 3、
-
-
 
 class ChatClient:
     def __init__(self, ip='127.0.0.1', port=9999):
@@ -30,7 +24,11 @@ class ChatClient:
             except Exception as e:
                 logging.error(e)
                 break
-            msg = '{:%Y/%m/%d %H:%M:%S}'.format(datetime.datetime.now(), *self.addr, data.decode())
+            if data == b'' or data == b'quit':
+                self.sock.close()
+                break
+            print(data.decode())
+            msg = '{:%Y/%m/%d %H:%M:%S} {} {} {}'.format(datetime.datetime.now(), *self.addr, data.decode())
             logging.info(msg)
 
     def send(self, msg:str):
@@ -46,6 +44,7 @@ class ChatClient:
 
 def main():
     cc = ChatClient()
+    # cc = ChatClient('169.254.175.222', 9999)
     cc.start()
     while True:
         cmd = input('>>>')
@@ -57,4 +56,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
 
